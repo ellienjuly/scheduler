@@ -5,7 +5,7 @@ import Show from "components/Appointment/Show";
 import "components/Appointment/styles.scss";
 
 export default function Appointment(props) {
-  
+  console.log(props);
   return (
   <Fragment>
     <article className="appointment">

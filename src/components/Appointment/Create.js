@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
-import Form from 'components/Appointment/Form'
 
 
 export default function Create(props) {
@@ -25,12 +24,15 @@ export default function Create(props) {
           */
         />
       </form>
-      {/* <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} /> */}
+      <InterviewerList 
+        interviewers={props.interviewers} 
+        interviewer={props.interviewer}
+        setInterviewer={() => setInterviewer()} />
     </section>
     <section className="appointment__card-right">
       <section className="appointment__actions">
         <Button danger onClick={props.onCancel}>Cancel</Button>
-        <Button confirm>Save</Button>
+        <Button confirm onClick={() => props.onSave(name, interviewer)}>Save</Button>
       </section>
     </section>
   </main>

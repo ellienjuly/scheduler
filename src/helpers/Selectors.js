@@ -17,28 +17,26 @@ export function getAppointmentsForDay(state, day) {
   return appointmentArray;
 }
 
-// export function getInterviewersForDay(state, day) {
-//   const selectedDay = state.days.filter(data => {
-//     return (data.name === day)
-//   });
+export function getInterviewersForDay(state, day) {
+  const selectedDay = state.days.filter(data => {
+    return (data.name === day)
+  });
 
-//   // console.log(state);
-//   console.log('SELECTED DAY-----', selectedDay);
+  //passing the test condition
+  if (!selectedDay.length || !state.days.length) {
+    return [];
+  }
 
-//   //passing the test condition
-//   if (!selectedDay.length || !state.days.length) {
-//     return [];
-//   }
+  const selectedInsterviewers = selectedDay[0].interviewers;
+  let interviewersArray = [];
 
-//   let allInterviewers = selectedDay[0].interviewers;
-//   console.log('allInterviewers-----', allInterviewers);
-//   let appointmentArray=[];
-
-//   for (let item of allAppointments) {
-//     appointmentArray.push(state.appointments[item])
-//   }
-//   return appointmentArray;
-// }
+  for (const interviewer of selectedInsterviewers) {
+    if (state.interviewers[interviewer]) {
+      interviewersArray.push(state.interviewers[interviewer])
+    }
+  }
+  return interviewersArray;
+}
 
 export function getInterview(state, interview) {
   if (!interview) {
@@ -47,7 +45,7 @@ export function getInterview(state, interview) {
 
   const interviewerID = interview.interviewer;
   // console.log(state.interviewer);
-  const interviewer = state.interviewer[interviewerID];
+  const interviewer = state.interviewers[interviewerID];
   // const interviewer = state.interviewer[interviewerID];
   const student = interview.student;
 

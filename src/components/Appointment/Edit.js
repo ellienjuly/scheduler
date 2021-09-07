@@ -6,15 +6,13 @@ export default function Edit(props) {
   return (
     <main className="appointment__card appointment__card--create">
     <section className="appointment__card-left">
-      <form autoComplete="off">
         <Form 
-          name="name"
+          name={props.name}
           interviewers={props.interviewers}
           interviewer={props.interviewer}
           onSave={props.save}
-          // onCancel={}
+          onCancel={props.cancel}
         />
-      </form>
     </section>
   </main>
   )

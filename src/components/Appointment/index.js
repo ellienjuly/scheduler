@@ -5,6 +5,7 @@ import Show from "components/Appointment/Show";
 import Form from "components/Appointment/Form";
 import Status from "components/Appointment/Status";
 import Confirm from "components/Appointment/Confirm";
+import Edit from "components/Appointment/Edit";
 import useVisualMode from "hooks/useVisualMode";
 import "components/Appointment/styles.scss";
 
@@ -15,11 +16,11 @@ export default function Appointment(props) {
   const SAVING = 'SAVING';
   const CANCEL = 'CANCEL';
   const CONFIRM = 'CONFIRM';
+  const EDIT = 'EDIT';
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
-  
 
   function save(name, interviewer) {
     const interview = {
@@ -46,6 +47,12 @@ export default function Appointment(props) {
     
   }
 
+  function edit(){
+    transition(EDIT)
+  }
+
+  console.log(props);
+
   return (
   <Fragment>
     <article className="appointment">
@@ -56,6 +63,7 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onEdit={edit}
           onDelete={confirm}
         />
       )}
@@ -76,6 +84,15 @@ export default function Appointment(props) {
           message="Do you want to cancel this appointment?"
           onCancel={back}
           onConfirm={cancel}
+        />
+      )}
+      {mode === EDIT && (
+        <Form 
+          name={props.interview.student}
+          interviewers={props.interviewers}
+          interviewer={props.interview.interviewer.id}
+          onSave={save}
+          onCancel={cancel}
         />
       )}
     </article>

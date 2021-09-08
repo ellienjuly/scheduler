@@ -5,7 +5,6 @@ import Show from "components/Appointment/Show";
 import Form from "components/Appointment/Form";
 import Status from "components/Appointment/Status";
 import Confirm from "components/Appointment/Confirm";
-import Edit from "components/Appointment/Edit";
 import Error from "components/Appointment/Error";
 import useVisualMode from "hooks/useVisualMode";
 import "components/Appointment/styles.scss";
@@ -30,12 +29,12 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    props.bookInterview(props.id, interview)
     transition(SAVING)
-
+    
     setTimeout(() =>
-      transition(SHOW)
-    , 1000)
+      props.bookInterview(props.id, interview)
+        .then(transition(SHOW))
+        .catch(error => transition(ERROR_SAVE)), 1000)
   }
 
   function confirm() {
@@ -54,7 +53,6 @@ export default function Appointment(props) {
     transition(EDIT)
   }
 
-  console.log(props);
 
   return (
   <Fragment>
@@ -90,7 +88,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === EDIT && (
-        <Edit 
+        <Form 
           name={props.interview.student}
           interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}

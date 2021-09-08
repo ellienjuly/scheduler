@@ -72,6 +72,7 @@ export default function useApplicationData(props){
     return axios.put(`api/appointments/${id}`, {
       interview
     })
+    .then(res => console.log('PUT RESPONSE----', res))
   }
 
   function cancelInterview(id) {

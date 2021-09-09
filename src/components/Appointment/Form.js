@@ -8,11 +8,32 @@ export default function Edit(props) {
   // const cancel = () => (props.onCancel? setName('') : setName(name))
   const [name, setName] = useState(props.name || '')
   const [interviewer, setInterviewer] = useState(props.interviewer || null)
+  const [error, setError] = useState('')
 
+    function validate() {
+      if (!name) {
+        return setError('student name cannot be blank');
+      }
+      setError()
+      props.onSave(name, interviewer)
+    }
+
+    function reset() {
+      setName()
+      setInterviewer()
+    }
+
+    function cancel() {
+      reset()
+      props.onCancel()
+    }
+
+  
   return (
     <main className="appointment__card appointment__card--create">
     <section className="appointment__card-left">
-      <form autoComplete="off" onSubmit={event => event.preventDefault()}>     
+      <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+
         <input
           className="appointment__create-input text--semi-bold"
           name={props.name}
@@ -25,6 +46,11 @@ export default function Edit(props) {
           */
         />
       </form>
+
+      <section className="appointment__validation">{error}</section>
+
+      
+
       <InterviewerList 
         interviewers={props.interviewers} 
         interviewer={interviewer}
@@ -32,8 +58,8 @@ export default function Edit(props) {
     </section>
     <section className="appointment__card-right">
       <section className="appointment__actions">
-        <Button danger>Cancel</Button>
-        <Button confirm onClick={() => props.onSave(name, interviewer)}>Save</Button>
+        <Button danger onClick={cancel}>Cancel</Button>
+        <Button confirm onClick={validate}>Save</Button>
       </section>
     </section>
   </main>

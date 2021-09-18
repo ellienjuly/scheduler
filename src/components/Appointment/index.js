@@ -33,13 +33,11 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    
     transition(SAVING)
 
-    setTimeout(() =>
-      props.bookInterview(props.id, interview)
-      .then(transition(SHOW))
-      .catch(error => transition(ERROR_SAVE, true)), 1000)
+    props.bookInterview(props.id, interview)
+    .then(() => transition(SHOW))
+    .catch(error => transition(ERROR_SAVE, true))
   }
 
   function confirm() {
@@ -49,10 +47,9 @@ export default function Appointment(props) {
   function cancel() {
     transition(CANCEL)
 
-    setTimeout(() =>
-      props.cancelInterview(props.id)
-      .then(transition(EMPTY))
-      .catch(error => transition(ERROR_DELETE, true)), 1000)
+    props.cancelInterview(props.id)
+    .then(() => transition(EMPTY))
+    .catch(error => transition(ERROR_DELETE, true))
   }
 
   function edit() {
@@ -65,7 +62,6 @@ export default function Appointment(props) {
     <Header time={props.time}/>
     {/* {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} /> : null} */}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE, true)}/>}
-      {console.log('PROPS---------',props)}
       {mode === SHOW && (
         <Show
           student={props.interview.student}

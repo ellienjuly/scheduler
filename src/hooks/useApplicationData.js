@@ -61,6 +61,7 @@ export default function useApplicationData(props){
         days: response.data
       });
     })
+    
    }
 
   function cancelInterview(id) {

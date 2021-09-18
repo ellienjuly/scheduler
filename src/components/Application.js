@@ -5,7 +5,6 @@ import useApplicationData from "hooks/useApplicationData";
 import "components/Application.scss";
 
 export default function Application() {
-    
   const {
     state,
     setState,
@@ -27,8 +26,6 @@ export default function Application() {
       getAppointments(),
       getInterviewers()
     ]).then((all) => {
-      // console.log('DAYS-------', all[0].data);
-      // console.log('APPOINTMENTS-------', all[1].data);
       setState(prev => ({
         ...prev,
         days: all[0].data,
